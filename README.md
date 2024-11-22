@@ -44,6 +44,7 @@ Functional Simulation:
 
 
 ## Fig 2: Invoke the Cadence Environment
+![innnvoke](https://github.com/user-attachments/assets/0e23520f-fc55-4b6a-bb56-4f982556968e)
 
 
 ## Creating Source Code:
@@ -55,12 +56,53 @@ Functional Simulation:
 (Note : File name should be with HDL Extension)
 
 ### Verilog code for 4-Bit Up-Down Counter:
+`timescale 1ns / 1 ns
+module counter(clk,m,rst,count);
+input clk,m,rst;
+output reg [3:0] count;
+always@(posedge clk or negedge rst)
+begin
+if (!rst)
+count=0;
+else if(m)
+count=count+1;
+else
+count=count-1;
+end
+endmodule
 
 */Program  for  4-Bit Up-Down Counter
 
 	Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
 ## Creating Test bench:
+
+`timescale 1ns / 1ns
+module counter_test;
+reg clk,rst,m;
+wire [3:0] count;
+initial
+begin
+clk=0;
+rst=0;#5;
+rst=1;
+end
+initial
+begin
+m=1;
+#160 m=0;
+end
+
+counter counter1 (clk,m,rst, count);
+
+always #5 clk=~clk;
+ 
+initial $monitor("Time=%t rst=%b clk=%b count=%b" , $time,rst,clk,count);
+
+initial
+#320 $finish;
+
+endmodule
 
 	Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (4bitup_down_count_tb.v).
 
@@ -82,6 +124,8 @@ Select Multiple Step and then select “Create cds.lib File” as shown in below
 Click the cds.lib file and save the file by clicking on Save option
 
 ## Fig 4: cds.lib file Creation
+![cds](https://github.com/user-attachments/assets/c93a6ab2-0910-4b8f-aca9-b4f74ffc702d)
+
 
 	Save cds.lib file and select the correct option for cds.lib file format based on the  HDL Language and Libraries used.
 
@@ -100,6 +144,8 @@ Click the cds.lib file and save the file by clicking on Save option
 	Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation
 
 ## Fig 6: Nclaunch Window
+![v](https://github.com/user-attachments/assets/59d3407e-ae55-46a1-9fa9-2124277c267d)
+
 
 To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation.
 
@@ -124,6 +170,7 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation 
 
 ## Fig 7: Compiled database in worklib
+![v](https://github.com/user-attachments/assets/48dc1c50-bcca-4923-8e49-725456850aaa)
 
 	After compilation it will come under worklib you can see in right side window
 
@@ -153,6 +200,8 @@ It contains statements that map logical library names to their physical director
 	After elaboration the file will come under snapshot. Select the test bench and simulate it. 
 
 ## Fig 8: Elaboration Launch Option
+![test](https://github.com/user-attachments/assets/77d400e2-0b0f-4a50-a4ec-69893315e333)
+
 
 ### Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
 
@@ -165,10 +214,16 @@ It contains statements that map logical library names to their physical director
 	Steps for simulation – Run the simulation command with simulator options
 
 ## Fig 9: Design Browser window for simulation
+![test](https://github.com/user-attachments/assets/8d4b304a-e086-4f29-bcc1-97b313658650)
+
 
 ## Fig 10: Simulation Waveform Window
+![sim](https://github.com/user-attachments/assets/4a40bdae-3220-42d5-9ab0-d8997b1a7b66)
+
 
 ## Fig 11: Simulation Waveform Window
+
+![sim](https://github.com/user-attachments/assets/aff1d2f9-57e8-42cd-b652-18f2a1d72018)
 
 ### Result
 
